@@ -22,6 +22,3 @@ jobs:
 
       - name: Install npm packages
         run: npm ci --ignore-scripts
-
-      - name: Cache npm packages
-        run: ls -la node_modules
