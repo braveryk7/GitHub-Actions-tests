@@ -40,9 +40,6 @@ jobs:
             ${{ runner.os }}-node_modules-dependencies-
             ${{ runner.os }}
 
-      - name: check home
-        run: ls -la ~/.npm
-
       - name: Install composer packages
         if: steps.cache_vendor_dependencies.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-scripts --no-progress
@@ -50,6 +47,9 @@ jobs:
       - name: Install npm packages
         if: steps.cache_node_modules_dependencies.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
+
+      - name: check home
+        run: ls -la ~/.npm
 
   test:
     name: PHPUnit
