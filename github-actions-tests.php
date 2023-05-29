@@ -1,6 +1,6 @@
 <?php
 
-class Main_Class {
+class Github_Actions {
     public function __construct() {
         add_action( 'shutdown', [ $this, 'call' ] );
     }
@@ -10,4 +10,4 @@ class Main_Class {
     }
 }
 
-new Main_Class();
+new Github_Actions();
