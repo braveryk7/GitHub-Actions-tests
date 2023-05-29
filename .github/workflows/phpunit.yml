@@ -8,8 +8,42 @@ on:
 env:
   CACHE_TAG: v1
 jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['8.0', '8.1', '8.2']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Cache dependencies
+        id: cache_dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ${{ github.workspace }}/vendor
+            ${{ github.workspace }}/.npm
+          key: ${{ runner.os }}-dependencies-${{ env.CACHE_TAG }}-${{ hashFiles('**/composer.lock') }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-dependencies-${{ env.CACHE_TAG }}-
+            ${{ runner.os }}-dependencies-
+            ${{ runner.os }}
+
+      - name: Install dependencies
+        run: |
+          composer install --prefer-dist --no-scripts --no-progress
+          npm ci --ignore-scripts
+
   test:
     name: PHPUnit
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,42 +55,28 @@ jobs:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, xdebug, dom
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
       - name: Checkout
         uses: actions/checkout@v3
+      
 
-      - name: Cache composer packages
-        id: vendor_cache
+      - name: Restore dependencies cache
+        id: cache_dependencies
         uses: actions/cache@v3
         with:
-          path: ${{ github.workspace }}/vendor
-          key: ${{ runner.os }}-composer-${{ env.CACHE_TAG }}-${{ hashFiles('**/composer.lock') }}
+          path: |
+            ${{ github.workspace }}/vendor
+            ${{ github.workspace }}/.npm
+          key: ${{ runner.os }}-dependencies-${{ env.CACHE_TAG }}-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-composer-${{ env.CACHE_TAG }}-
-            ${{ runner.os }}-composer-
-            ${{ runner.os }}
+            ${{ runner.os }}-dependencies-${{ env.CACHE_TAG }}-${{ matrix.php-version }}-
+            ${{ runner.os }}-dependencies-${
 
       - name: Install composer packages
-        if: steps.vendor_cache.outputs.cache-hit != 'true'
+        if: steps.cache_dependencies.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-scripts --no-progress
 
-      - name: Cache npm
-        id: npm_cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ env.CACHE_TAG }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-${{ env.CACHE_TAG }}-
-            ${{ runner.os }}-composer-
-            ${{ runner.os }}
-
       - name: Install npm packages
-        if: steps.npm_cache.outputs.cache-hit != 'true'
+        if: steps.cache_dependencies.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
 
       - name: JS build
