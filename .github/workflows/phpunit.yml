@@ -74,6 +74,12 @@ jobs:
       - name: Install npm packages
         if: steps.cache_dependencies.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
+      
+      - name: pwd
+        run: pwd
+
+      - name: ls -la
+        run: ls -la
 
       - name: Start wp-env
         run: npm run wp-env start --update
