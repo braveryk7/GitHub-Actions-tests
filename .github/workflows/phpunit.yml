@@ -39,16 +39,10 @@ jobs:
         if: steps.cache_vendor_dependencies.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-scripts --no-progress
 
-      - name: Check node version
-        run: node --version
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
-
-      - name: Check node version
-        run: node --version
 
       - name: Install npm packages
         if: steps.cache_node_modules_dependencies.outputs.cache-hit != 'true'
@@ -65,9 +59,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Check node version
-        run: node --version
 
       - name: Setup -> PHP ${{ matrix.php-version }}
         uses: shivammathur/setup-php@v2
