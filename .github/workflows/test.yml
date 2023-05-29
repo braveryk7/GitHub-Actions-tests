@@ -1,0 +1,16 @@
+name: Test
+
+on: 
+  push:
+
+
+jobs:
+  setup:
+      name: Setup
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: show
+          run: ls -la ${{ github.workspace }}
