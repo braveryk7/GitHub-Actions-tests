@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/env": "^8.0.0",
+    "@wordpress/scripts": "^26.5.0"
+  }
 }
