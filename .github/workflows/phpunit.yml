@@ -13,11 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
       - name: Cache vendor dependencies
         id: cache_vendor_dependencies
         uses: actions/cache@v3
@@ -43,6 +38,13 @@ jobs:
       - name: Install composer packages
         if: steps.cache_vendor_dependencies.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-scripts --no-progress
+
+
+      - name: Setup Node.js
+        if: steps.cache_node_modules_dependencies.outputs.cache-hit != 'true'
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
       - name: Install npm packages
         if: steps.cache_node_modules_dependencies.outputs.cache-hit != 'true'
