@@ -97,6 +97,10 @@ jobs:
         if: steps.cache_node_modules_dependencies.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
 
+      - name: Generate .wp-env.override.json
+        run: |
+          echo '{"config": {},"core": "WordPress/WordPress#${{ matrix.wp-version }}","env": {},"mappings": {},"phpVersion": "${{ matrix.php-version }}","plugins": ["."],"themes": []}' > .wp-env.override.json
+
       - name: Start wp-env
         run: npm run wp-env start --update
 
