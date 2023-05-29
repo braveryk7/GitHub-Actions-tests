@@ -2,11 +2,11 @@
 
 class Main_Class {
     public function __construct() {
-        $this->call();
+        add_action( 'shutdown', [ $this, 'call' ] );
     }
 
     public function call() {
-        echo 'Hello!';
+        echo '<script>console.log(' . wp_json_encode( 'Hello World!' ) . ');</script>';
     }
 }
 
