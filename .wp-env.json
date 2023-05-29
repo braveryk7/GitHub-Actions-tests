@@ -1,0 +1,11 @@
+{
+	"config": {},
+	"core": null,
+	"env": {},
+	"mappings": {},
+	"phpVersion": "8.2",
+	"plugins": [
+        "."
+	],
+	"themes": []
+}
