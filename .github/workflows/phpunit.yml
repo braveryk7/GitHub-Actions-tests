@@ -33,7 +33,7 @@ jobs:
         id: cache_node_modules_dependencies
         uses: actions/cache@v3
         with:
-          path: ${{ github.workspace }}/.npm
+          path: ${{ github.workspace }}/node_modules
           key: ${{ runner.os }}-node_modules_dependencies-${{ env.CACHE_TAG }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node_modules-dependencies-${{ env.CACHE_TAG }}-
