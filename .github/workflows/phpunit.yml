@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}
 
       - name: check home
-        run: ls -la ~/
+        run: ls -la ~/.npm
 
       - name: check workspace
         run: ls -la ${{ github.workspace }}
