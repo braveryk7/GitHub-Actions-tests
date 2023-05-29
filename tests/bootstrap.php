@@ -16,7 +16,7 @@ require_once $_tests_dir . 'includes/functions.php';
  * Manually load the Admin Bar Tools.
  */
 function _manually_load_plugin() {
-	require dirname( dirname( __FILE__ ) ) . '/github-actions-tests.php';
+	require dirname( dirname( __FILE__ ) ) . '/github-actions.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
