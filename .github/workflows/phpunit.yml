@@ -61,10 +61,11 @@ jobs:
           path: |
             ${{ github.workspace }}/vendor
             ${{ github.workspace }}/.npm
-          key: ${{ runner.os }}-dependencies-${{ env.CACHE_TAG }}-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-dependencies-${{ env.CACHE_TAG }}-${{ hashFiles('**/composer.lock') }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-dependencies-${{ env.CACHE_TAG }}-${{ matrix.php-version }}-
-            ${{ runner.os }}-dependencies-${
+            ${{ runner.os }}-dependencies-${{ env.CACHE_TAG }}-
+            ${{ runner.os }}-dependencies-
+            ${{ runner.os }}
 
       - name: Install composer packages
         if: steps.cache_dependencies.outputs.cache-hit != 'true'
@@ -73,9 +74,6 @@ jobs:
       - name: Install npm packages
         if: steps.cache_dependencies.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
-
-      - name: JS build
-        run: npm run build
 
       - name: Start wp-env
         run: npm run wp-env start --update
