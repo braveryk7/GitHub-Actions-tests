@@ -59,10 +59,6 @@ jobs:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, xdebug, dom
 
-      - name: Checkout
-        uses: actions/checkout@v3
-      
-
       - name: Cache vendor dependencies
         id: cache_vendor_dependencies
         uses: actions/cache@v3
