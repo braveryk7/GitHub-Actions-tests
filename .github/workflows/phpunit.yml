@@ -85,7 +85,7 @@ jobs:
         run: cat package.json
 
       - name: check npm cmd
-        run: npm run --version
+        run: npm run
 
       - name: Start wp-env
         run: npm run wp-env start --update
