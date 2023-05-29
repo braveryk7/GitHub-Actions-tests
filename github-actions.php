@@ -1,4 +1,7 @@
 <?php
+/**
+ * Plugin Name: Admin Bar Tools
+ */
 
 class Github_Actions {
     public function __construct() {
