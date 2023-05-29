@@ -39,8 +39,8 @@ jobs:
         if: steps.cache_vendor_dependencies.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-scripts --no-progress
 
-      - name: Check npm version
-        run: npm --version
+      - name: Check node version
+        run: node --version
 
       - name: Setup Node.js
         if: steps.cache_node_modules_dependencies.outputs.cache-hit != 'true'
@@ -48,8 +48,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: Check npm version
-        run: npm --version
+      - name: Check node version
+        run: node --version
 
       - name: Install npm packages
         if: steps.cache_node_modules_dependencies.outputs.cache-hit != 'true'
@@ -67,7 +67,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Check npm version
+      - name: Check node version
         run: npm --version
 
       - name: Setup -> PHP ${{ matrix.php-version }}
