@@ -51,6 +51,9 @@ jobs:
       - name: check home
         run: ls -la ~/.npm
 
+      - name: check workspace
+        run: ls -la ${{ github.workspace }}
+
   test:
     name: PHPUnit
     needs: setup
