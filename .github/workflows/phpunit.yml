@@ -10,14 +10,8 @@ jobs:
     name: Setup
     runs-on: ubuntu-latest
     steps:
-      - name: ls
-        run: ls -la
-
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: ls
-        run: ls -la
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -64,9 +58,6 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, xdebug, dom
-
-      - name: ls
-        run: ls -la
 
       - name: Cache vendor dependencies
         id: cache_vendor_dependencies
