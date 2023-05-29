@@ -48,6 +48,9 @@ jobs:
         with:
           node-version: 16
 
+      - name: Check npm version
+        run: npm --version
+
       - name: Install npm packages
         if: steps.cache_node_modules_dependencies.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
