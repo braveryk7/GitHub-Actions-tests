@@ -105,8 +105,8 @@ jobs:
       - name: check npm cmd
         run: npm run
 
-      # - name: Start wp-env
-      #   run: npm run wp-env start --update
+      - name: Start wp-env
+        run: npm run wp-env start --update
 
-      # - name: Run test suite
-      #   run: npm run test:env
+      - name: Run test suite
+        run: npm run test:env
