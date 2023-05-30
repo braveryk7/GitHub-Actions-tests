@@ -9,6 +9,7 @@ class Github_Actions {
     }
 
     public function call() {
+        strlen(null);
         echo '<script>console.log(' . wp_json_encode( 'Hello World!' ) . ');</script>';
     }
 }
