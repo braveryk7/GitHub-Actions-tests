@@ -1,7 +1,7 @@
 name: PHPUnit
 
 on: 
-  # push:
+  push:
 
 env:
   CACHE_TAG: v1
