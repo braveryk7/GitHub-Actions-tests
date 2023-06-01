@@ -3,7 +3,7 @@
 	"core": null,
 	"env": {},
 	"mappings": {},
-	"phpVersion": "8.2",
+	"phpVersion": null,
 	"plugins": [
         "."
 	],
