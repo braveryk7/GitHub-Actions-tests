@@ -16,16 +16,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cache vendor dependencies
-        id: cache_vendor_dependencies
-        uses: actions/cache@v3
+      - uses: ./.github/actions/cache-vendor-dependencies
         with:
-          path: ${{ github.workspace }}/vendor
-          key: ${{ runner.os }}-vendor-dependencies-${{ env.CACHE_TAG }}-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-vendor-dependencies-${{ env.CACHE_TAG }}-
-            ${{ runner.os }}-vendor-dependencies-
-            ${{ runner.os }}
+          cache-tag: ${{ env.CACHE_TAG }}
+
+
+      # - name: Cache vendor dependencies
+      #   id: cache_vendor_dependencies
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ${{ github.workspace }}/vendor
+      #     key: ${{ runner.os }}-vendor-dependencies-${{ env.CACHE_TAG }}-${{ hashFiles('**/composer.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-vendor-dependencies-${{ env.CACHE_TAG }}-
+      #       ${{ runner.os }}-vendor-dependencies-
+      #       ${{ runner.os }}
 
       - name: Cache node_modules dependencies
         id: cache_node_modules_dependencies
@@ -38,9 +43,9 @@ jobs:
             ${{ runner.os }}-node_modules-dependencies-
             ${{ runner.os }}
 
-      - name: Install composer packages
-        if: steps.cache_vendor_dependencies.outputs.cache-hit != 'true'
-        run: composer install --prefer-dist --no-scripts --no-progress
+      # - name: Install composer packages
+      #   if: steps.cache_vendor_dependencies.outputs.cache-hit != 'true'
+      #   run: composer install --prefer-dist --no-scripts --no-progress
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
