@@ -1,17 +1,10 @@
 <?php
 /**
- * Plugin Name: Admin Bar Tools
+ * Plugin Name: Example Plugin
  */
 
-class Github_Actions {
-    public function __construct() {
-        add_action( 'shutdown', [ $this, 'call' ] );
-    }
-
-    public function call() {
-        strlen(null);
-        echo '<script>console.log(' . wp_json_encode( 'Hello World!' ) . ');</script>';
+class Example_Plugin {
+    public function set_my_option(): bool {
+        return update_option( 'my_option', 'my_value' );
     }
 }
-
-new Github_Actions();
