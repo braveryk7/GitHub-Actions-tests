@@ -2,9 +2,6 @@ name: Cache vendor dependencies
 description: Cache vendor directories and make them reusable
 
 inputs:
-  os:
-    description: os information
-    required: true
   cache_tag:
     description: cache tag
     required: true
@@ -20,11 +17,11 @@ runs:
       uses: actions/cache@v3
       with:
         path: ${{ github.workspace }}/vendor
-        key: ${{ inputs.os }}-vendor-dependencies-${{ inputs.cache_tag }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-vendor-dependencies-${{ inputs.cache_tag }}-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          ${{ inputs.os }}-vendor-dependencies-${{ env.cache_tag }}-
-          ${{ inputs.os }}-vendor-dependencies-
-          ${{ inputs.os }}
+          ${{ runner.os }}-vendor-dependencies-${{ env.cache_tag }}-
+          ${{ runner.os }}-vendor-dependencies-
+          ${{ runner.os }}
 
     - name: Install composer packages
       if: steps.cache_vendor_dependencies.outputs.cache-hit != 'true'
