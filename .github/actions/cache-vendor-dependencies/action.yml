@@ -14,7 +14,7 @@ runs:
       uses: actions/cache@v3
       with:
         path: ${{ github.workspace }}/vendor
-        key: ${{ runner.os }}-vendor-dependencies-${{ inputs.cache_tag }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-vendor-dependencies-${{ inputs.cache_tag }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-vendor-dependencies-${{ env.cache_tag }}-
           ${{ runner.os }}-vendor-dependencies-
