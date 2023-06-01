@@ -20,25 +20,15 @@ jobs:
         with:
           cache_tag: ${{ env.CACHE_TAG }}
 
-      - name: Cache node_modules dependencies
-        id: cache_node_modules_dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/node_modules
-          key: ${{ runner.os }}-node_modules_dependencies-${{ env.CACHE_TAG }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node_modules-dependencies-${{ env.CACHE_TAG }}-
-            ${{ runner.os }}-node_modules-dependencies-
-            ${{ runner.os }}
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
-
-      - name: Install npm packages
-        if: steps.cache_node_modules_dependencies.outputs.cache-hit != 'true'
-        run: npm ci --ignore-scripts
+      
+      - name: Install npm packages & cache node_modules
+        uses: ./.github/actions/cache-node_modules-dependencies
+        with:
+          cache_tag: ${{ env.CACHE_TAG }}
 
   test:
     name: PHPUnit
@@ -65,9 +55,10 @@ jobs:
         with:
           cache_tag: ${{ env.CACHE_TAG }}
 
-      - name: Install npm packages
-        if: steps.${{ env.NODE_MODULES_CACHE_ID }}.outputs.cache-hit != 'true'
-        run: npm ci --ignore-scripts
+      - name: Install npm packages & cache node_modules
+        uses: ./.github/actions/cache-node_modules-dependencies
+        with:
+          cache_tag: ${{ env.CACHE_TAG }}
 
       - name: Generate .wp-env.override.json
         run: |
