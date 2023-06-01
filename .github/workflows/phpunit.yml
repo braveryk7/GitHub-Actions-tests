@@ -16,7 +16,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: ./.github/actions/cache-vendor-dependencies
+      - name: Install composer packages & cache vendor directory
+        uses: ./.github/actions/cache-vendor-dependencies
         with:
           cache_tag: ${{ env.CACHE_TAG }}
 
