@@ -5,9 +5,6 @@ inputs:
   cache_tag:
     description: cache tag
     required: true
-  hash_file:
-    description: hash file
-    required: true
 
 runs:
   using: composite
