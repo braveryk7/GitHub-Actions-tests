@@ -5,6 +5,9 @@ on:
 
 env:
   CACHE_TAG: v1
+  VENDOR_CACHE_ID: cache_vendor_dependencies
+  NODE_MODULES_CACHE_ID: cache_node_modules_dependencies
+  
 jobs:
   setup:
     name: Setup
@@ -66,34 +69,12 @@ jobs:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, xdebug, dom
 
-      - name: Cache vendor dependencies
-        id: cache_vendor_dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/vendor
-          key: ${{ runner.os }}-vendor-dependencies-${{ env.CACHE_TAG }}-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-vendor-dependencies-${{ env.CACHE_TAG }}-
-            ${{ runner.os }}-vendor-dependencies-
-            ${{ runner.os }}
-
-      - name: Cache node_modules dependencies
-        id: cache_node_modules_dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/node_modules
-          key: ${{ runner.os }}-node_modules_dependencies-${{ env.CACHE_TAG }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node_modules-dependencies-${{ env.CACHE_TAG }}-
-            ${{ runner.os }}-node_modules-dependencies-
-            ${{ runner.os }}
-
       - name: Install composer packages
-        if: steps.cache_vendor_dependencies.outputs.cache-hit != 'true'
+        if: steps.${{ env.VENDOR_CACHE_ID }}.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-scripts --no-progress
 
       - name: Install npm packages
-        if: steps.cache_node_modules_dependencies.outputs.cache-hit != 'true'
+        if: steps.${{ env.NODE_MODULES_CACHE_ID }}.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
 
       - name: Generate .wp-env.override.json
