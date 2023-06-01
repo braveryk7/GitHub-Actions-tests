@@ -8,6 +8,7 @@ inputs:
 
 runs:
   using: composite
+  shell: bash
   steps:
     - name: Cache vendor dependencies
       id: cache_vendor_dependencies
