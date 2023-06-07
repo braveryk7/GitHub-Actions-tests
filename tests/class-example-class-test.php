@@ -2,14 +2,14 @@
 
 use Yoast\WPTestUtils\WPIntegration\TestCase;
 
-class Github_Actions_Test extends TestCase {
+class Test_Class extends TestCase {
     private $instance;
 
     public function set_up(): void {
         parent::set_up();
 
         // テスト対象のクラスをインスタンス化して$this->instanceに格納
-        $this->instance = new Example_Plugin();
+        $this->instance = new Test_Class();
         
     }
 
