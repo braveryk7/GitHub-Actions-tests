@@ -81,5 +81,5 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          directory: ${{ github.workspace }}/coverage/reports/
+          files: ${{ github.workspace }}/coverage/reports/index.xml
           verbose: true
