@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
 		"wp-env": "wp-env",
-    "test:env": "wp-env run --env-cwd='wp-content/plugins/GitHub-Actions-tests' tests-cli vendor/bin/phpunit -c phpunit.xml --testdox"
+    "test:env": "wp-env run --env-cwd='wp-content/plugins/GitHub-Actions-tests' tests-cli vendor/bin/phpunit -c phpunit.xml --testdox --coverage-xml ./.cache/phpunit/coverage/"
   },
   "keywords": [],
   "author": "",
