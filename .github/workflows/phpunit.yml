@@ -5,8 +5,6 @@ on:
 
 env:
   CACHE_TAG: v1
-  VENDOR_CACHE_ID: cache_vendor_dependencies
-  NODE_MODULES_CACHE_ID: cache_node_modules_dependencies
   
 jobs:
   setup:
