@@ -2,14 +2,14 @@
 
 use Yoast\WPTestUtils\WPIntegration\TestCase;
 
-class Test_Class extends TestCase {
+class Example_Class_Test extends TestCase {
     private $instance;
 
     public function set_up(): void {
         parent::set_up();
 
         // テスト対象のクラスをインスタンス化して$this->instanceに格納
-        $this->instance = new Test_Class();
+        $this->instance = new Example_Class();
         
     }
 
