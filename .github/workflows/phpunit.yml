@@ -82,5 +82,5 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          directory: ${{ github.workspace }}/.cache/phpunit/coverage/
+          directory: ${{ github.workspace }}/coverage/reports/
           verbose: true
