@@ -71,3 +71,8 @@ jobs:
 
       - name: Run test suite
         run: npm run test:env
+
+      - name: Check cache
+        run: |
+          ls -la
+          ls -la .cache/phpunit
