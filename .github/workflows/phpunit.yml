@@ -76,3 +76,4 @@ jobs:
         run: |
           ls -la
           ls -la .cache/phpunit
+          ls -la .cache/phpunit/coverage
