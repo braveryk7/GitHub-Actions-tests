@@ -7,7 +7,7 @@
 	"plugins": [
         "."
 	],
-    "port": 40010,
-    "testsPort": 40011,
+    "port": 40110,
+    "testsPort": 40111,
 	"themes": []
 }
