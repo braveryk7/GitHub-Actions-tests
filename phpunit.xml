@@ -8,5 +8,8 @@
         <include>
             <directory suffix=".php">./class</directory>
         </include>
+        <report>
+            <xml outputDirectory="./.cache/phpunit/coverage/" />
+        </report>
     </coverage>
 </phpunit>
