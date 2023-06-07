@@ -73,7 +73,6 @@ jobs:
 
       - name: Check cache
         run: |
-          ls -la ${{ github.workspace }}/
           ls -la ${{ github.workspace }}/coverage/reports/
       
       - name: Upload coverage reports to Codecov
