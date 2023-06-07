@@ -73,9 +73,9 @@ jobs:
 
       - name: Check cache
         run: |
-          ls -la
-          ls -la .cache/phpunit
-          ls -la .cache/phpunit/coverage
+          ls -la ${{ github.workspace }}/
+          ls -la ${{ github.workspace }}/.cache/phpunit
+          ls -la ${{ github.workspace }}/.cache/phpunit/coverage
       
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
