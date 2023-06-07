@@ -6,7 +6,7 @@
     </testsuites>
     <coverage processUncoveredFiles="true">
         <include>
-            <directory suffix=".php">.</directory>
+            <directory suffix=".php">./class</directory>
         </include>
     </coverage>
 </phpunit>
