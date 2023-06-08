@@ -9,7 +9,7 @@ class Example_Class_Test extends TestCase {
         parent::set_up();
 
         require_once ROOT_DIR . '/class/class-example-class.php';
-        // テスト対象のクラスをインスタンス化して$this->instanceに格納
+        // テスト対象のクラスをインスタンス化して$this->instanceに格納.
         $this->instance = new Example_Class();
         
     }
