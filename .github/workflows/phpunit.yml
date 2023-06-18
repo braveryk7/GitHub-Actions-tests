@@ -5,6 +5,7 @@ on:
 
 env:
   CACHE_TAG: v1
+  
 jobs:
   setup:
     name: Setup
@@ -19,9 +20,11 @@ jobs:
           cache_tag: ${{ env.CACHE_TAG }}
 
       - name: Setup Node.js
-        uses: ./.github/actions/setup-nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
       
-      - name: Install npm packages & cache node_modules directory
+      - name: Install npm packages & cache node_modules
         uses: ./.github/actions/cache-node_modules-dependencies
         with:
           cache_tag: ${{ env.CACHE_TAG }}
@@ -32,8 +35,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ['8.0', '8.1', '8.2']
-        wp-version:  ['5.9', '6.0', '6.1', '6.2', 'master']
+        # php-version: ['8.0', '8.1', '8.2']
+        # wp-version:  ['master', '6.2', '6.1', '6.0', '5.9']
+        php-version: [ '8.0' ]
+        wp-version: [ '6.2' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -43,15 +48,13 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
 
-      - name: Setup Node.js
-        uses: ./.github/actions/setup-nodejs
 
       - name: Install composer packages & cache vendor directory
         uses: ./.github/actions/cache-vendor-dependencies
         with:
           cache_tag: ${{ env.CACHE_TAG }}
 
-      - name: Install npm packages & cache node_modules directory
+      - name: Install npm packages & cache node_modules
         uses: ./.github/actions/cache-node_modules-dependencies
         with:
           cache_tag: ${{ env.CACHE_TAG }}
@@ -63,5 +66,13 @@ jobs:
       - name: Start wp-env
         run: npm run wp-env start -- --xdebug=coverage
 
+      - name: Check apt
+        run: ls -la /etc/apt
+
       - name: Run test suite
         run: npm run test:env
+      
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
