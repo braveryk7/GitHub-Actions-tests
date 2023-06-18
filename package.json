@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@wordpress/env": "^8.1.0",
+    "@wordpress/env": "^8.0.0",
     "@wordpress/scripts": "^26.5.0"
   }
 }
